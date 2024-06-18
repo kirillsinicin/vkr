@@ -7,11 +7,14 @@ import {Context} from "./index";
 import {check} from "./http/userAPI";
 import {Spinner} from "react-bootstrap";
 import Footer from './components/Footer';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 const App = observer(() => {
     const { userStore } = useContext(Context)
     const [ loading, setLoading ] = useState(true)
-
+    
     useEffect(() => {
         check()
             .then(data => {

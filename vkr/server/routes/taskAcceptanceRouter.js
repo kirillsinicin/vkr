@@ -5,7 +5,7 @@ const authMiddleware = require('../middleware/authMiddleware')
 
 router.post('/', authMiddleware, taskAcceptanceController.create)
 router.patch('/accept/:id', authMiddleware, taskAcceptanceController.accept)
-router.get('/search', authMiddleware, taskAcceptanceController.getByFilter)
-//router.get('/:id', authMiddleware, taskAcceptanceController.getOne)
+router.get('/searchall', authMiddleware, taskAcceptanceController.getAllByFilter)
+router.get('/search', authMiddleware, taskAcceptanceController.getOneByFilter)
 
 module.exports = router

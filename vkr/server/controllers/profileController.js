@@ -1,7 +1,9 @@
 const uuid = require('uuid')
 const path = require('path');
-const { Profile, UserContact } = require('../models/models')
+const { Profile, UserContact, Review, User } = require('../models/models')
 const ApiError = require('../error/ApiError');
+const sequelizeObj = require('../db');
+const sequelize = require('sequelize');
 
 class ProfileController {
 
@@ -58,16 +60,33 @@ class ProfileController {
     async getOne(req, res, next) {
         const { id } = req.params
         const profile = await ProfileController.getProfile(id)
+
         return res.json(profile)
     }
 
     static async getProfile(profileId) {
-        return await Profile.findOne(
+        const profile = await Profile.findOne(
             {
                 where: { id: profileId },
-                include: [{ model: UserContact, as: 'userContacts' }]
+                include: [
+                    { 
+                        model: UserContact,
+                        as: 'userContacts' 
+                    },
+                ]
             },
         )
+
+        const rating = await sequelizeObj.query('SELECT AVG(rating) FROM reviews WHERE "userId" = :userId;',{
+            replacements: { userId: profileId },
+            plain: true,
+            raw: true,
+            type: sequelize.QueryTypes.SELECT,
+          });
+
+        profile.setDataValue("rating", rating.avg || 0)
+
+        return profile
     }
 }
 

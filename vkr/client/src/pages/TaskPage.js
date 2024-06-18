@@ -24,6 +24,7 @@ const TaskPage = () => {
         "surname": "",
         "img": "https://placehold.co/400"
     });
+    const [isProfileLoading, setIsProfileLoading] = useState(true);
 
     const [isApplyButtonActive, setIsApplyButtonActive] = useState(false)
     const [isSendAcceptButtonActive, setIsSendAcceptButtonActive] = useState(false)
@@ -34,10 +35,13 @@ const TaskPage = () => {
                 setTask(task)
 
                 fetchOneProfile(task.ownerId)
-                    .then(profile => setProfile({
-                        ...profile,
-                        img: process.env.REACT_APP_API_URL + profile.img
-                    }))
+                    .then(profile => {
+                        setProfile({
+                            ...profile,
+                            img: process.env.REACT_APP_API_URL + profile.img
+                        })
+                        setIsProfileLoading(false);
+                    })
 
                 fetchResponseByTaskId(task.id)
                     .then(responsesData => {
@@ -92,7 +96,7 @@ const TaskPage = () => {
             </Row>
             <Row>
                 <Col md={4} onClick={() => history.push(PROFILE_ROUTE + '/' + profile.id)}>
-                    <ProfileCard profile={profile} />
+                    {isProfileLoading ? <></> : <ProfileCard profile={profile} />}
                 </Col>
                 <Col md={4}>
                     <Card

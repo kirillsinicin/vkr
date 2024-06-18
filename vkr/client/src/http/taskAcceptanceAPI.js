@@ -19,3 +19,8 @@ export const search = async (taskId, executorId) => {
     const {data} = await $authHost.get(`api/acceptance/search?taskId=${taskId}&executorId=${executorId}`)
     return data
 }
+
+export const fetchTaskAcceptancesByTaskOwner = async (ownerId) => {
+    const {data} = await $authHost.get(`api/acceptance/searchall?ownerId=${ownerId}`)
+    return data
+}

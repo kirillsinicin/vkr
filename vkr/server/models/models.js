@@ -37,9 +37,9 @@ const TaskInfo = sequelize.define('taskinfo', {
     description: { type: DataTypes.STRING },
 })
 
-const Rating = sequelize.define('rating', {
+const Review = sequelize.define('review', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    rate: { type: DataTypes.INTEGER },
+    rating: { type: DataTypes.INTEGER },
 })
 
 const Type = sequelize.define('type', {
@@ -105,8 +105,8 @@ Task.belongsTo(User,{
     foreignKey: 'executorId',
 })
 
-User.hasMany(Rating)
-Rating.belongsTo(User)
+User.hasMany(Review)
+Review.belongsTo(User)
 
 User.hasMany(Notification)
 Notification.belongsTo(User)
@@ -116,9 +116,6 @@ Notification.belongsTo(NotificationType)
 
 Task.hasMany(Notification)
 Notification.belongsTo(Task)
-
-Task.hasOne(Rating)
-Rating.belongsTo(Task)
 
 Task.hasMany(TaskInfo, { as: 'info', onDelete: 'CASCADE' })
 TaskInfo.belongsTo(Task)
@@ -157,7 +154,7 @@ module.exports = {
     UserContact,
     Task,
     TaskInfo,
-    Rating,
+    Review,
     Type,
     Payment,
     NotificationType,

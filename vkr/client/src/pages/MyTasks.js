@@ -5,10 +5,12 @@ import { fetchTasksWhereUserExecutor, fetchTasksWhereUserOwner } from '../http/t
 import { Context } from '..';
 import { Col, Container, Row } from 'react-bootstrap';
 import TaskList from '../components/TaskList';
+import AcceptanceList from '../components/AcceptanceList';
 
 
 const OWNER_STATE = 'ownerTasks'
 const EXECUTOR_STATE = 'executorTasks'
+const ACCEPTANCE_STATE = 'acceptance'
 
 const MyTasks = () => {
     const { taskStore } = useContext(Context)
@@ -49,6 +51,9 @@ const MyTasks = () => {
                         </Tab>
                         <Tab eventKey={EXECUTOR_STATE} title="Я исполнитель">
                             <TaskList />
+                        </Tab>
+                        <Tab eventKey={ACCEPTANCE_STATE} title="Приём работы">
+                            <AcceptanceList/>
                         </Tab>
                     </Tabs>
                 </Col>

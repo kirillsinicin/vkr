@@ -6,6 +6,8 @@ const taskRouter = require('./taskRouter')
 const profileRouter = require('./profileRouter')
 const responseRouter = require('./responseRouter')
 const taskAcceptanceRouter = require('./taskAcceptanceRouter')
+const reviewRouter = require('./reviewRouter')
+const statisticRouter = require('./statisticRouter')
 
 router.use('/user', userRouter)
 router.use('/type', typeRouter)
@@ -13,5 +15,7 @@ router.use('/task', taskRouter)
 router.use('/profile', profileRouter)
 router.use('/response', responseRouter)
 router.use('/acceptance', taskAcceptanceRouter)
+router.use('/review', reviewRouter)
+router.use('/statistics', statisticRouter)
 
 module.exports = router

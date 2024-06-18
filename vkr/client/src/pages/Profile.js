@@ -7,20 +7,24 @@ import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 const Profile = () => {
     const [profile, setProfile] = useState({ userContacts: [] })
     const { id } = useParams()
+    const [isProfileLoading, setIsProfileLoading] = useState(true);
 
     useEffect(() => {
         fetchOneProfile(id)
-            .then(profile => setProfile({
-                ...profile,
-                img: process.env.REACT_APP_API_URL + profile.img
-            }))
+            .then(profile => {
+                setProfile({
+                    ...profile,
+                    img: process.env.REACT_APP_API_URL + profile.img
+                })
+                setIsProfileLoading(false);
+            })
     }, [id])
 
     return (
         <Container className="mt-3" style={{paddingBottom:50, paddingTop:50}}>
             <Row>
                 <Col className="ml-3">
-                    <ProfileCard profile={profile}/>
+                    {isProfileLoading ? <></> : <ProfileCard profile={profile} />}
                 </Col>
                 <Col>
                     <h2>Описание</h2>
