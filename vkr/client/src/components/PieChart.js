@@ -1,29 +1,45 @@
 import React from 'react';
 import { Pie } from 'react-chartjs-2';
 
-const data = {
-    labels: ['Готов', 'В работе', 'Опубликован'],
-    datasets: [
-      {
-        data: [12, 19, 3],
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-        ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-        ],
-        borderWidth: 2,
-      },
-    ],
-  };
+const statusDictionary = {
+    PUBLISHED: "Опубликован",
+    IN_PROGRESS: "В работе",
+    READY: "Готов",
+}
 
-const PieChart = () => {
+function transformData(serverData) {
+    const clientData = {labels: [], datasets: []};
+    clientData.labels = serverData.map(item => translateWord(item.label, statusDictionary))
+    clientData.datasets = [
+        {
+            data: serverData.map(item => item.data),
+            backgroundColor: serverData.map(item => getRandomColor())
+        }
+    ]
+    return clientData
+}
+
+function translateWord(word, dict) {
+
+    if (dict[word]) {
+        return dict[word]
+    } else {
+        return word
+    }
+}
+
+function getRandomColor(){
+    return `rgba(${getRandom()}, ${getRandom()}, ${getRandom()}, 0.2)`
+}
+
+function getRandom(){
+    return parseInt(Math.random() * 255)
+}
+
+
+const PieChart = ({ chartData }) => {
     return (
-        <Pie data={data} />
+        <Pie data={transformData(chartData)} />
     );
 };
 
