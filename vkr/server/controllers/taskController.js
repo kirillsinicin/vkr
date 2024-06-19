@@ -51,10 +51,16 @@ class TaskController {
     let offset = page * limit - limit
     let tasks;
     if (!typeId) {
-      tasks = await Task.findAndCountAll({ where: { executorId: null }, limit, offset })
+      tasks = await Task.findAndCountAll({
+        order: [['createdAt', 'DESC'],],
+        where: { executorId: null }, limit, offset 
+      })
     }
     if (typeId) {
-      tasks = await Task.findAndCountAll({ where: { typeId, executorId: null }, limit, offset })
+      tasks = await Task.findAndCountAll({ 
+        order: [['createdAt', 'DESC'],],
+        where: { typeId, executorId: null }, limit, offset
+       })
     }
     return res.json(tasks)
   }

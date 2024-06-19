@@ -123,7 +123,7 @@ const CreateTask = observer(({ show, onHide }) => {
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="outline-danger" onClick={onHide}>Закрыть</Button>
-                <Button variant="outline-success" onClick={addTask}>Добавить</Button>
+                <Button variant="outline-success" onClick={addTask}>Опубликовать</Button>
             </Modal.Footer>
         </Modal>
     );

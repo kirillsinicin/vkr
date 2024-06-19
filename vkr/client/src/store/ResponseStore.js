@@ -8,7 +8,6 @@ export default class ResponseStore {
 
     setResponses(responses) {
         this._responses = responses
-        console.log(responses)
     }
 
     get responses() {

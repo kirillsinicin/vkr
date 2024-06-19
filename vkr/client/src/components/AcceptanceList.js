@@ -4,6 +4,7 @@ import { ListGroup } from 'react-bootstrap';
 import AcceptanceItem from './AcceptanceItem';
 import { fetchTaskAcceptancesByTaskOwner } from '../http/taskAcceptanceAPI';
 import RatingModal from './modals/RatingModal';
+import NewRatingModal from './modals/NewRatingModal';
 
 const AcceptanceList = () => {
     const [acceptanceList, setAcceptanceList] = useState([])
@@ -41,7 +42,13 @@ const AcceptanceList = () => {
                     <AcceptanceItem key={acceptance.id} acceptance={acceptance} showRatingModal={showRatingModal} />
                 )}
             </ListGroup>
-            <RatingModal
+            {/* <RatingModal
+                executorId={executorId}
+                taskId={taskId}
+                show={ratingModalShow}
+                onHide={hideRatingModal}
+            /> */}
+            <NewRatingModal
                 executorId={executorId}
                 taskId={taskId}
                 show={ratingModalShow}

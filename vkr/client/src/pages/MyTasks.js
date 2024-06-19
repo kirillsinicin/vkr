@@ -6,13 +6,15 @@ import { Context } from '..';
 import { Col, Container, Row } from 'react-bootstrap';
 import TaskList from '../components/TaskList';
 import AcceptanceList from '../components/AcceptanceList';
+import Pages from '../components/Pages';
+import { observer } from 'mobx-react-lite';
 
 
 const OWNER_STATE = 'ownerTasks'
 const EXECUTOR_STATE = 'executorTasks'
 const ACCEPTANCE_STATE = 'acceptance'
 
-const MyTasks = () => {
+const MyTasks = observer(() => {
     const { taskStore } = useContext(Context)
     const [key, setKey] = useState(OWNER_STATE);
 
@@ -48,9 +50,11 @@ const MyTasks = () => {
                     >
                         <Tab eventKey={OWNER_STATE} title="Я заказчик">
                             <TaskList />
+                            <Pages />
                         </Tab>
                         <Tab eventKey={EXECUTOR_STATE} title="Я исполнитель">
                             <TaskList />
+                            <Pages />
                         </Tab>
                         <Tab eventKey={ACCEPTANCE_STATE} title="Приём работы">
                             <AcceptanceList/>
@@ -61,6 +65,6 @@ const MyTasks = () => {
 
         </Container>
     );
-};
+});
 
 export default MyTasks;

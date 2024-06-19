@@ -7,7 +7,7 @@ import { fetchOneProfile } from "../http/profileAPI";
 import { PROFILE_ROUTE } from '../utils/consts';
 import { useHistory } from "react-router-dom"
 import ProfileCard from '../components/ProfileCard';
-import { createResponse, fetchResponseByFilter, fetchResponseByTaskId } from '../http/responseAPI';
+import { createResponse, fetchResponseByTaskId } from '../http/responseAPI';
 import ResponseList from '../components/ResponseList';
 import { createAcceptance, search } from '../http/taskAcceptanceAPI';
 

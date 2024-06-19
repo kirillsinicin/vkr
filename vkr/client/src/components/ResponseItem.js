@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { Button, ListGroup, NavLink } from 'react-bootstrap';
+import { Button, Col, ListGroup, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { PROFILE_ROUTE } from '../utils/consts';
 import { asignTaskExecutor } from '../http/taskAPI';
 
-const ResponseItem = ({response}) => {
-    const [isButtonActive, setIsButtonActive] = useState(response.user.id!==response.task.executorId)
+const ResponseItem = ({ response }) => {
+    const [isButtonActive, setIsButtonActive] = useState(response.user.id !== response.task.executorId)
     const profile = response.user.profile
-    
+
     const handleOnChooseExecutorClick = (event, response) => {
         event.preventDefault()
         const formData = new FormData()
@@ -21,16 +21,22 @@ const ResponseItem = ({response}) => {
 
     return (
         <ListGroup.Item>
-            <Link to={`${PROFILE_ROUTE}/${profile.id}`}>{profile.name} {profile.surname}</Link>
-            <Button 
-                onClick={(event) => {
-                    handleOnChooseExecutorClick(event, response)
-                    //у таска executorId = response.user.id
-                }}
-                disabled={!isButtonActive}
-            >
-                Назначить
-            </Button>
+            <Row>
+                <Col>
+                    <Link to={`${PROFILE_ROUTE}/${profile.id}`}>{profile.name} {profile.surname}</Link>
+                </Col>
+                <Col>
+                    <Button
+                        onClick={(event) => {
+                            handleOnChooseExecutorClick(event, response)
+                        }}
+                        disabled={!isButtonActive}
+                    >
+                        Назначить
+                    </Button>
+                </Col>
+            </Row>
+
         </ListGroup.Item>
     );
 };

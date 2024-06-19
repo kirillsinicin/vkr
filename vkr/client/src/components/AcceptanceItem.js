@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, ListGroup } from 'react-bootstrap';
 
 const AcceptanceItem = ({acceptance, showRatingModal}) => {
