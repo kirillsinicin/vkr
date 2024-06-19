@@ -3,6 +3,7 @@ import { Container, Form, InputGroup, Button, Row, Col, Image } from 'react-boot
 import { fetchOneProfile, updateProfile } from '../http/profileAPI';
 import { Context } from '..';
 import { v4 as uuidv4 } from 'uuid';
+import star from '../assets/star.png'
 
 const MyProfile = () => {
     const { userStore } = useContext(Context)
@@ -14,6 +15,7 @@ const MyProfile = () => {
     const [userContacts, setUserContacts] = useState([])
     const [image, setImage] = useState(null)
     const [imageSrc, setImageSrc] = useState('')
+    const [rating, setRating] = useState(0)
 
     useEffect(() => {
         fetchOneProfile(userStore.user.id)
@@ -45,6 +47,7 @@ const MyProfile = () => {
         data.description && setDescription(data.description);
         data.userContacts && setUserContacts(data.userContacts);
         data.img && setImageSrc(`${process.env.REACT_APP_API_URL}${data.img}`);
+        data.rating && setRating(parseFloat(data.rating).toFixed(2))
     }
 
     const addContact = () => {
@@ -58,7 +61,7 @@ const MyProfile = () => {
     }
 
     return (
-        <Container className="mt-3" style={{paddingBottom:50, paddingTop:50}}>
+        <Container className="mt-3" style={{ paddingBottom: 50, paddingTop: 50 }}>
             <Form>
                 <Row>
                     <Col>
@@ -69,6 +72,10 @@ const MyProfile = () => {
                                     src={imageSrc === "" ? "https://placehold.co/400" : imageSrc}
                                     className="mt-3"
                                 />
+                                <div className="d-flex align-items-center">
+                                    <div>Рейтинг: {rating}</div>
+                                    <Image width={18} height={18} src={star} />
+                                </div>
                             </Form.Label>
                             <Form.Control
                                 type="file"

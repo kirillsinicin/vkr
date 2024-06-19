@@ -4,6 +4,6 @@ const profileController = require('../controllers/profileController')
 const authMiddleware = require('../middleware/authMiddleware')
 
 router.get('/:id', profileController.getOne)
-router.patch('/:id', authMiddleware, profileController.update.bind(profileController))
+router.patch('/:id', authMiddleware, profileController.update)
 
 module.exports = router

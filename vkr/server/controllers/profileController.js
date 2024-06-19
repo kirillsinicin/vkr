@@ -38,17 +38,16 @@ class ProfileController {
             )
 
             if (contacts) {
-                UserContact.destroy({ where: { profileId } })
+                await UserContact.destroy({ where: { profileId } })
 
                 contacts = JSON.parse(contacts)
-                contacts.forEach(i =>
-                    UserContact.create({
+                for(let contact of contacts){
+                    await UserContact.create({
                         profileId,
-                        title: i.title,
-                        description: i.description,
+                        title: contact.title,
+                        description: contact.description,
                     })
-                )
-                dataToUpdate["contacts"] = contacts;
+                }
             }
             const profile = await ProfileController.getProfile(profileId)
             return res.json(profile)
